@@ -6,12 +6,10 @@ export default class Publishers extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      table.string('name')
+      table.text('address')
+      table.string('phone', 20)
+      table.timestamps(true,true)
     })
   }
 

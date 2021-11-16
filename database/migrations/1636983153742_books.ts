@@ -6,16 +6,27 @@ export default class Books extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
+      table.string('title')
+      table.text('description')
+      table.integer('year')
+      table.string('author')
+      table.integer('category_id', 10).unsigned()
+      table.integer('publisher_id', 10).unsigned()
+      table.timestamps(true, true)
+    })
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+    this.schema.alterTable(this.tableName, (table) => {
+      table.foreign('category_id').references('categories.id').onDelete('SET NULL')
+      table.foreign('publisher_id').references('publishers.id').onDelete('SET NULL')
     })
   }
 
   public async down () {
+    this.schema.alterTable(this.tableName, (table) => {
+      table.dropForeign('category_id')
+      table.dropForeign('publisher_id')
+    })
+    
     this.schema.dropTable(this.tableName)
   }
 }
