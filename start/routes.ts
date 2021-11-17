@@ -25,3 +25,4 @@ Route.get('/', async () => {
 })
 
 Route.resource('categories', 'CategoriesController').apiOnly()
+Route.resource('publishers', 'PublishersController').apiOnly()
