@@ -19,8 +19,15 @@ export default class Employee extends BaseModel {
   @column()
   public image: string
 
-  @belongsTo(() => User)
-  public venue: BelongsTo<typeof User>
+  @column()
+  public userId: number
+
+  @belongsTo(() => User, {
+    onQuery(query) {
+      query.select('id', 'email', 'created_at', 'updated_at')
+    }
+  })
+  public user: BelongsTo<typeof User>
 
   @hasMany(() => Borrow)
   public borrows: HasMany<typeof Borrow>
