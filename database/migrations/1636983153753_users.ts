@@ -7,6 +7,7 @@ export default class Users extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('email').unique()
+      table.boolean('verified').defaultTo(false)
       table.string('password')
       table.timestamps(true, true)
     })
