@@ -2,10 +2,14 @@
   "name": "adonisjs-perpustakaan",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "14.17.4"
+  },
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:prod": "node ./build/server.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.3.8",
