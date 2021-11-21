@@ -24,9 +24,25 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.resource('categories', 'CategoriesController').apiOnly()
-Route.resource('publishers', 'PublishersController').apiOnly()
-Route.resource('members', 'MembersController').apiOnly()
-Route.resource('employees', 'EmployeesController').apiOnly()
-Route.post('login', 'AuthController.login').as('auth.login')
-Route.post('verification', 'AuthController.emailVerification').as('auth.emailVerification')
+
+Route.group(() => {
+  
+  Route.group(() => {
+    
+    Route.group(() => {
+      Route.resource('categories', 'CategoriesController').apiOnly()
+      Route.resource('publishers', 'PublishersController').apiOnly()
+      Route.resource('members', 'MembersController').apiOnly()
+    }).middleware(['role:employee,admin'])
+
+    Route.group(() => {
+      Route.resource('employees', 'EmployeesController').apiOnly()
+    }).middleware(['role:admin'])
+  
+  }).middleware(['auth', 'verified'])
+
+
+  Route.post('login', 'AuthController.login').as('auth.login')
+  Route.post('verification', 'AuthController.emailVerification').as('auth.emailVerification')
+
+}).prefix('/api/v1')

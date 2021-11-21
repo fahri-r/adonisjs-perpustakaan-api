@@ -6,9 +6,9 @@ export default class Publishers extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('name')
-      table.text('address')
-      table.string('phone', 20)
+      table.string('name').notNullable()
+      table.text('address').notNullable()
+      table.string('phone', 20).notNullable()
       table.timestamps(true,true)
     })
   }

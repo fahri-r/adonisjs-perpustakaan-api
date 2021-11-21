@@ -6,9 +6,10 @@ export default class Users extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('email').unique()
-      table.boolean('verified').defaultTo(false)
-      table.string('password')
+      table.string('email').unique().notNullable()
+      table.boolean('verified').defaultTo(false).notNullable()
+      table.string('password').notNullable()
+      table.enum('role', ['admin', 'employee']).defaultTo('employee').notNullable()
       table.timestamps(true, true)
     })
   }
