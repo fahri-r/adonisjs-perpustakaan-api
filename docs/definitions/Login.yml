@@ -1,0 +1,13 @@
+definitions:
+  Login:    
+    type: object
+    properties:
+      email:
+        type: string
+        description: registered email
+      password:
+        type: string
+        description: registered password
+    required:
+      - email
+      - password

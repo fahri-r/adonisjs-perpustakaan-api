@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Borrow from './Borrow'
+import User from './User'
 
 export default class Member extends BaseModel {
   @column({ isPrimary: true })
@@ -18,8 +19,18 @@ export default class Member extends BaseModel {
   @column()
   public image: string
 
+  @column()
+  public userId: number
+
   @hasMany(() => Borrow)
   public borrows: HasMany<typeof Borrow>
+  
+  @belongsTo(() => User, {
+    onQuery(query) {
+      query.select('id', 'email', 'telegram_id', 'role', 'verified', 'created_at', 'updated_at')
+    }
+  })
+  public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

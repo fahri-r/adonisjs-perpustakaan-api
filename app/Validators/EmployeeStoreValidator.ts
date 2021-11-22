@@ -32,12 +32,16 @@ export default class EmployeeStoreValidator {
       rules.confirmed(),
       rules.minLength(8)
     ]),
+    telegramId: schema.string.optional({}, [
+      rules.unique({ table: 'users', column: 'telegram_id' }),
+    ]),
     name: schema.string(),
     address: schema.string(),
     phone: schema.string({}, [
       rules.mobile()
     ]),
     image: schema.string(),
+    role: schema.enum.optional(['admin', 'employee']),
   })
 
   /**

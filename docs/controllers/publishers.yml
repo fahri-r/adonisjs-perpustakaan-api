@@ -1,0 +1,111 @@
+
+paths:
+  /api/v1/publishers:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Publishers
+      summary: get all publishers
+      responses:
+        200:
+          description: success get publishers
+        401:
+          description: unauthorized
+        404:
+          description: no data found
+
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Publishers
+      summary: store publisher data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Publisher'
+            application/json:
+                schema:
+                    $ref: '#definitions/Publisher'
+      responses:
+        201:
+          description: publisher created
+        401:
+          description: unauthorized
+        422:
+          description: some fields are invalid
+
+  /api/v1/publishers/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: publisher id you want to show
+      security:
+        - bearerAuth: []
+      tags:
+        - Publishers
+      summary: get publisher by id
+      responses:
+        200:
+          description: success get publisher by id
+        401:
+          description: unauthorized
+        404:
+          description: publisher not found
+
+    put:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: publisher id you want to update
+      security:
+        - bearerAuth: []
+      tags:
+        - Publishers
+      summary: update publisher data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Publisher'
+            application/json:
+                schema:
+                    $ref: '#definitions/Publisher'
+      responses:
+        200:
+          description: publisher updated
+        401:
+          description: unauthorized
+        404:
+          description: publisher not found
+        422:
+          description: some fields are invalid
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: publisher id you want to delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Publishers
+      summary: delete publisher data
+      responses:
+        200:
+          description: publisher deleted
+        401:
+          description: unauthorized
+        404:
+          description: publisher not found

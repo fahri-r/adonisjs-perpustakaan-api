@@ -1,0 +1,34 @@
+definitions:
+  MemberStore:    
+    type: object
+    properties:
+      email:
+        type: string
+        description: member email
+      password:
+        type: string
+        description: password
+      password_confirmation:
+        type: string
+        description: password confirmation
+      name:
+        type: string
+        description: member name
+      address:
+        type: string
+        description: member address
+      phone:
+        type: string
+        description: member phone
+      image:
+        type: string
+        description: member image
+      telegram_id:
+        type: string
+        description: member telegram id
+    required:
+      - email
+      - name
+      - address
+      - phone
+      - image

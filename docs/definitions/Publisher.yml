@@ -1,0 +1,17 @@
+definitions:
+  Publisher:    
+    type: object
+    properties:
+      name:
+        type: string
+        description: publisher name
+      address:
+        type: string
+        description: publisher address
+      phone:
+        type: string
+        description: publisher phone
+    required:
+      - name
+      - address
+      - phone

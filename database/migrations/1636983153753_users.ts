@@ -9,7 +9,8 @@ export default class Users extends BaseSchema {
       table.string('email').unique().notNullable()
       table.boolean('verified').defaultTo(false).notNullable()
       table.string('password').notNullable()
-      table.enum('role', ['admin', 'employee']).defaultTo('employee').notNullable()
+      table.string('telegram_id').unique().nullable()
+      table.enum('role', ['admin', 'employee', 'member']).defaultTo('employee').notNullable()
       table.timestamps(true, true)
     })
   }

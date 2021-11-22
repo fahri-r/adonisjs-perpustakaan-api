@@ -1,0 +1,37 @@
+definitions:
+  EmployeeUpdate:    
+    type: object
+    properties:
+      email:
+        type: string
+        description: employee email
+      password:
+        type: string
+        description: password
+      password_confirmation:
+        type: string
+        description: password confirmation
+      name:
+        type: string
+        description: employee name
+      address:
+        type: string
+        description: employee address
+      phone:
+        type: string
+        description: employee phone
+      image:
+        type: string
+        description: employee image
+      telegram_id:
+        type: string
+        description: employee telegram id
+      role:
+        type: string
+        description: can be filled with employee or admin
+    required:
+      - email
+      - name
+      - address
+      - phone
+      - image

@@ -1,0 +1,115 @@
+
+paths:
+  /api/v1/employees:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Employees
+      summary: get all employees
+      responses:
+        200:
+          description: success get employees
+        401:
+          description: unauthorized
+        404:
+          description: no data found
+
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Employees
+      summary: store employee data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/EmployeeStore'
+            application/json:
+                schema:
+                    $ref: '#definitions/EmployeeStore'
+      responses:
+        201:
+          description: employee created
+        400:
+          description: database error
+        401:
+          description: unauthorized
+        422:
+          description: some fields are invalid
+
+  /api/v1/employees/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: employee id you want to show
+      security:
+        - bearerAuth: []
+      tags:
+        - Employees
+      summary: get employee by id
+      responses:
+        200:
+          description: success get employee by id
+        401:
+          description: unauthorized
+        404:
+          description: employee not found
+
+    put:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: employee id you want to update
+      security:
+        - bearerAuth: []
+      tags:
+        - Employees
+      summary: update employee data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/EmployeeUpdate'
+            application/json:
+                schema:
+                    $ref: '#definitions/EmployeeUpdate'
+      responses:
+        200:
+          description: employee updated
+        400:
+          description: database error
+        401:
+          description: unauthorized
+        404:
+          description: employee not found
+        422:
+          description: some fields are invalid
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: employee id you want to delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Employees
+      summary: delete employee data
+      responses:
+        200:
+          description: employee deleted
+        401:
+          description: unauthorized
+        404:
+          description: employee not found
