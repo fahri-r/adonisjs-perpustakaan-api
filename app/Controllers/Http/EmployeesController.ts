@@ -30,6 +30,14 @@ export default class EmployeesController {
     const user = new User
     user.email = payload.email
     user.password = payload.password
+    
+    if(payload.telegramId) {
+      user.telegramId = payload.telegramId
+    }
+    
+    if(payload.role) {
+      user.role = payload.role
+    }
 
     const employee = new Employee
     employee.name = payload.name
@@ -93,6 +101,14 @@ export default class EmployeesController {
     
     if(payload.password) {
       user.password = payload.password
+    }
+
+    if(payload.telegramId) {
+      user.telegramId = payload.telegramId
+    }
+
+    if(payload.role) {
+      user.role = payload.role
     }
     
     try {

@@ -3,6 +3,7 @@ import { BaseModel, column, HasOne, hasOne, beforeSave } from '@ioc:Adonis/Lucid
 import Hash from '@ioc:Adonis/Core/Hash'
 import Employee from './Employee'
 import VerificationCode from './VerificationCode'
+import Member from './Member'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -20,6 +21,9 @@ export default class User extends BaseModel {
   @column()
   public verified: boolean
 
+  @column()
+  public telegramId: string
+
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
@@ -29,6 +33,9 @@ export default class User extends BaseModel {
 
   @hasOne(() => Employee)
   public employee: HasOne<typeof Employee>
+
+  @hasOne(() => Member)
+  public member: HasOne<typeof Member>
 
   @hasOne(() => VerificationCode)
   public verificationCode: HasOne<typeof VerificationCode>

@@ -1,0 +1,13 @@
+definitions:
+  Verification:    
+    type: object
+    properties:
+      email:
+        type: string
+        description: registered email
+      code:
+        type: string
+        description: verification code
+    required:
+      - email
+      - code

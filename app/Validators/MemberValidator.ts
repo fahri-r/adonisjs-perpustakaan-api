@@ -24,6 +24,17 @@ export default class MemberValidator {
    *    ```
    */
   public schema = schema.create({
+    email: schema.string({}, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
+    ]),
+    password: schema.string.optional({}, [
+      rules.confirmed(),
+      rules.minLength(8)
+    ]),
+    telegramId: schema.string.optional({}, [
+      rules.unique({ table: 'users', column: 'telegram_id' }),
+    ]),
     name: schema.string(),
     address: schema.string(),
     phone: schema.string({}, [

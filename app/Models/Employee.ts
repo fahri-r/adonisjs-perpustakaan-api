@@ -24,7 +24,7 @@ export default class Employee extends BaseModel {
 
   @belongsTo(() => User, {
     onQuery(query) {
-      query.select('id', 'email', 'created_at', 'updated_at')
+      query.select('id', 'email', 'telegram_id', 'role', 'verified', 'created_at', 'updated_at')
     }
   })
   public user: BelongsTo<typeof User>

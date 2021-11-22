@@ -1,0 +1,115 @@
+
+paths:
+  /api/v1/members:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: get all members
+      responses:
+        200:
+          description: success get members
+        401:
+          description: unauthorized
+        404:
+          description: no data found
+
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: store member data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/MemberStore'
+            application/json:
+                schema:
+                    $ref: '#definitions/MemberStore'
+      responses:
+        201:
+          description: member created
+        400:
+          description: database error
+        401:
+          description: unauthorized
+        422:
+          description: some fields are invalid
+
+  /api/v1/members/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: member id you want to show
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: get member by id
+      responses:
+        200:
+          description: success get member by id
+        401:
+          description: unauthorized
+        404:
+          description: member not found
+
+    put:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: member id you want to update
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: update member data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/MemberUpdate'
+            application/json:
+                schema:
+                    $ref: '#definitions/MemberUpdate'
+      responses:
+        200:
+          description: member updated
+        400:
+          description: database error
+        401:
+          description: unauthorized
+        404:
+          description: member not found
+        422:
+          description: some fields are invalid
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: member id you want to delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: delete member data
+      responses:
+        200:
+          description: member deleted
+        401:
+          description: unauthorized
+        404:
+          description: member not found
