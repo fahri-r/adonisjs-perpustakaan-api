@@ -1,0 +1,9 @@
+definitions:
+  TelegramLogin:    
+    type: object
+    properties:
+      telegram_id:
+        type: integer
+        description: registered telegram id
+    required:
+      - telegram_id

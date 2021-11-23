@@ -42,7 +42,8 @@ Route.group(() => {
   }).middleware(['auth', 'verified'])
 
 
-  Route.post('login', 'AuthController.login').as('auth.login')
+  Route.post('login/web', 'AuthController.webLogin').as('auth.webLogin')
+  Route.post('login/telegram', 'AuthController.telegramLogin').as('auth.telegramLogin')
   Route.post('verification', 'AuthController.emailVerification').as('auth.emailVerification')
 
 }).prefix('/api/v1')

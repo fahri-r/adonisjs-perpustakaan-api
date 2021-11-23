@@ -32,7 +32,7 @@ export default class MemberValidator {
       rules.confirmed(),
       rules.minLength(8)
     ]),
-    telegramId: schema.string.optional({}, [
+    telegram_id: schema.string.optional({}, [
       rules.unique({ table: 'users', column: 'telegram_id' }),
     ]),
     name: schema.string(),
@@ -40,7 +40,7 @@ export default class MemberValidator {
     phone: schema.string({}, [
       rules.mobile()
     ]),
-    image: schema.string(),
+    image: schema.string.optional(),
   })
 
   /**

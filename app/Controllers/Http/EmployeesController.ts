@@ -31,8 +31,8 @@ export default class EmployeesController {
     user.email = payload.email
     user.password = payload.password
     
-    if(payload.telegramId) {
-      user.telegramId = payload.telegramId
+    if(payload.telegram_id) {
+      user.telegramId = payload.telegram_id
     }
     
     if(payload.role) {
@@ -43,7 +43,9 @@ export default class EmployeesController {
     employee.name = payload.name
     employee.address = payload.address
     employee.phone = payload.phone
-    employee.image = payload.image
+    if(payload.image) {
+      employee.image = payload.image
+    }
     
     const code = Math.floor(100000 + Math.random() * 900000)
     const verificationCode = new VerificationCode
@@ -94,7 +96,9 @@ export default class EmployeesController {
     employee.name = payload.name
     employee.address = payload.address
     employee.phone = payload.phone
-    employee.image = payload.image
+    if(payload.image) {
+      employee.image = payload.image
+    }
 
     const user = await User.findOrFail(employee.userId)
     user.email = payload.email
@@ -103,8 +107,8 @@ export default class EmployeesController {
       user.password = payload.password
     }
 
-    if(payload.telegramId) {
-      user.telegramId = payload.telegramId
+    if(payload.telegram_id) {
+      user.telegramId = payload.telegram_id
     }
 
     if(payload.role) {

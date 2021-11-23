@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class EmployeeUpdateValidator {
+export default class WebLoginValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -26,22 +26,8 @@ export default class EmployeeUpdateValidator {
   public schema = schema.create({
     email: schema.string({}, [
       rules.email(),
-      rules.unique({ table: 'users', column: 'email' }),
     ]),
-    password: schema.string.optional({}, [
-      rules.confirmed(),
-      rules.minLength(8)
-    ]),
-    telegram_id: schema.string.optional({}, [
-      rules.unique({ table: 'users', column: 'telegram_id' }),
-    ]),
-    name: schema.string(),
-    address: schema.string(),
-    phone: schema.string({}, [
-      rules.mobile()
-    ]),
-    image: schema.string.optional(),
-    role: schema.enum.optional(['admin', 'employee']),
+    password: schema.string(),
   })
 
   /**
@@ -55,5 +41,7 @@ export default class EmployeeUpdateValidator {
    * }
    *
    */
-  public messages = {}
+  public messages = {
+		'required': 'the {{field}} field is required to login'
+	}
 }

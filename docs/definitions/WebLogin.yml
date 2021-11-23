@@ -1,5 +1,5 @@
 definitions:
-  Login:    
+  WebLogin:    
     type: object
     properties:
       email:
