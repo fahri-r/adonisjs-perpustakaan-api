@@ -4,31 +4,30 @@ definitions:
     properties:
       email:
         type: string
-        description: employee email
+        description: member email
       password:
         type: string
         description: password
       password_confirmation:
         type: string
-        description: password confirmation
+        description: member confirmation
       name:
         type: string
-        description: employee name
+        description: member name
       address:
         type: string
-        description: employee address
+        description: member address
       phone:
         type: string
-        description: employee phone
+        description: member phone
       image:
         type: string
-        description: employee image
+        description: member image
       telegram_id:
         type: string
-        description: employee telegram id
+        description: member telegram id
     required:
       - email
       - name
       - address
       - phone
-      - image

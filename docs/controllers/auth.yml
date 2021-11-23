@@ -1,17 +1,39 @@
-/api/v1/login:
+/api/v1/login/web:
   post:
     tags:
       - Auth
-    summary: login
+    summary: web login
     requestBody:
       required: true
       content:
         application/x-www-form-urlencoded:
           schema:
-            $ref: '#/definitions/Login'
+            $ref: '#/definitions/WebLogin'
         application/json:
           schema:
-            $ref: '#/definitions/Login'
+            $ref: '#/definitions/WebLogin'
+    responses:
+      200:
+        description: login success
+      400:
+        description: invalid credentials
+      422:
+        description: some fields are invalid
+
+/api/v1/login/telegram:
+  post:
+    tags:
+      - Auth
+    summary: telegram login
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: '#/definitions/TelegramLogin'
+        application/json:
+          schema:
+            $ref: '#/definitions/TelegramLogin'
     responses:
       200:
         description: login success

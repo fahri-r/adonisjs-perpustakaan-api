@@ -9,7 +9,7 @@ export default class Members extends BaseSchema {
       table.string('name').notNullable()
       table.text('address').notNullable()
       table.string('phone', 20).notNullable()
-      table.string('image')
+      table.string('image').nullable()
       table.integer('user_id', 10).unsigned()
       table.timestamps(true, true)
     })

@@ -29,8 +29,8 @@ export default class MembersController {
       const user = new User
       user.email = payload.email
       user.role = 'member'
-      if(payload.telegramId) {
-        user.telegramId = payload.telegramId
+      if(payload.telegram_id) {
+        user.telegramId = payload.telegram_id
       }
       user.password = payload.password ? payload.password : '12345678'
   
@@ -38,7 +38,9 @@ export default class MembersController {
       member.name = payload.name
       member.address = payload.address
       member.phone = payload.phone
-      member.image = payload.image
+      if(payload.image) {
+        member.image = payload.image
+      }
       await member.save()
     
       const code = Math.floor(100000 + Math.random() * 900000)
@@ -90,7 +92,9 @@ export default class MembersController {
       member.name = payload.name
       member.address = payload.address
       member.phone = payload.phone
-      member.image = payload.image
+      if(payload.image) {
+        member.image = payload.image
+      }
       await member.save()
 
       const user = await User.findOrFail(member.userId)
@@ -100,8 +104,8 @@ export default class MembersController {
         user.password = payload.password
       }
 
-      if(payload.telegramId) {
-        user.telegramId = payload.telegramId
+      if(payload.telegram_id) {
+        user.telegramId = payload.telegram_id
       }
       
       try {
