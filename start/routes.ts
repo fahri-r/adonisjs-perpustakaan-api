@@ -33,6 +33,8 @@ Route.group(() => {
       Route.resource('categories', 'CategoriesController').apiOnly()
       Route.resource('publishers', 'PublishersController').apiOnly()
       Route.resource('members', 'MembersController').apiOnly()
+      Route.resource('books', 'BooksController').apiOnly()
+      Route.resource('borrows', 'BorrowsController').apiOnly()
     }).middleware(['role:employee,admin'])
 
     Route.group(() => {

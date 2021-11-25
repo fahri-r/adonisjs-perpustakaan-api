@@ -1,0 +1,111 @@
+
+paths:
+  /api/v1/borrows:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Borrows
+      summary: get all borrows
+      responses:
+        200:
+          description: success get borrows
+        401:
+          description: unauthorized
+        404:
+          description: no data found
+
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Borrows
+      summary: store borrow data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Borrow'
+            application/json:
+                schema:
+                    $ref: '#definitions/Borrow'
+      responses:
+        201:
+          description: borrow created
+        401:
+          description: unauthorized
+        422:
+          description: some fields are invalid
+
+  /api/v1/borrows/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: borrow id you want to show
+      security:
+        - bearerAuth: []
+      tags:
+        - Borrows
+      summary: get borrow by id
+      responses:
+        200:
+          description: success get borrow by id
+        401:
+          description: unauthorized
+        404:
+          description: borrow not found
+
+    put:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: borrow id you want to update
+      security:
+        - bearerAuth: []
+      tags:
+        - Borrows
+      summary: update borrow data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Borrow'
+            application/json:
+                schema:
+                    $ref: '#definitions/Borrow'
+      responses:
+        200:
+          description: borrow updated
+        401:
+          description: unauthorized
+        404:
+          description: borrow not found
+        422:
+          description: some fields are invalid
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: borrow id you want to delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Borrows
+      summary: delete borrow data
+      responses:
+        200:
+          description: borrow deleted
+        401:
+          description: unauthorized
+        404:
+          description: borrow not found

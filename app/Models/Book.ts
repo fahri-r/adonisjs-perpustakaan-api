@@ -19,6 +19,12 @@ export default class Book extends BaseModel {
 
   @column()
   public author: string
+  
+  @column()
+  public categoryId: number
+  
+  @column()
+  public publisherId: number
 
   @belongsTo(() => Category)
   public category: BelongsTo<typeof Category>

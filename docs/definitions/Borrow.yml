@@ -1,0 +1,24 @@
+definitions:
+  Borrow:    
+    type: object
+    properties:
+      book_id:
+        type: integer
+        description: book id
+      member_id:
+        type: integer
+        description: member id
+      borrow_date:
+        type: date
+        description: borrow date
+      return_date:
+        type: date
+        description: return date
+      status:
+        type: boolean
+        description: borrow status
+    required:
+      - book_id
+      - member_id
+      - borrow_date
+      - return_date

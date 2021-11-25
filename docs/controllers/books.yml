@@ -1,0 +1,111 @@
+
+paths:
+  /api/v1/books:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Books
+      summary: get all books
+      responses:
+        200:
+          description: success get books
+        401:
+          description: unauthorized
+        404:
+          description: no data found
+
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Books
+      summary: store book data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Book'
+            application/json:
+                schema:
+                    $ref: '#definitions/Book'
+      responses:
+        201:
+          description: book created
+        401:
+          description: unauthorized
+        422:
+          description: some fields are invalid
+
+  /api/v1/books/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: book id you want to show
+      security:
+        - bearerAuth: []
+      tags:
+        - Books
+      summary: get book by id
+      responses:
+        200:
+          description: success get book by id
+        401:
+          description: unauthorized
+        404:
+          description: book not found
+
+    put:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: book id you want to update
+      security:
+        - bearerAuth: []
+      tags:
+        - Books
+      summary: update book data
+      requestBody:
+        required: true
+        content:
+            application/x-www-form-urlencoded:
+                schema:
+                    $ref: '#definitions/Book'
+            application/json:
+                schema:
+                    $ref: '#definitions/Book'
+      responses:
+        200:
+          description: book updated
+        401:
+          description: unauthorized
+        404:
+          description: book not found
+        422:
+          description: some fields are invalid
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: book id you want to delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Books
+      summary: delete book data
+      responses:
+        200:
+          description: book deleted
+        401:
+          description: unauthorized
+        404:
+          description: book not found
