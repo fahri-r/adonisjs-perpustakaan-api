@@ -11,7 +11,7 @@ export default class Borrows extends BaseSchema {
       table.integer('book_id', 10).unsigned()
       table.date('borrow_date').notNullable()
       table.date('return_date').notNullable()
-      table.boolean('status')
+      table.boolean('status').defaultTo(false)
       table.timestamps(true, true)
     })
     

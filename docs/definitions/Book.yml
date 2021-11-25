@@ -1,0 +1,29 @@
+definitions:
+  Book:    
+    type: object
+    properties:
+      title:
+        type: string
+        description: book title
+      description:
+        type: string
+        description: book description
+      year:
+        type: integer
+        description: publication year
+      author:
+        type: string
+        description: author name
+      category_id:
+        type: integer
+        description: category id
+      publisher_id:
+        type: integer
+        description: publisher id
+    required:
+      - title
+      - description
+      - year
+      - author
+      - category_id
+      - publisher_id

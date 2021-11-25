@@ -7,12 +7,21 @@ import Book from './Book'
 export default class Borrow extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+  
+  @column()
+  public bookId: number
+
+  @column()
+  public memberId: number
+  
+  @column()
+  public employeeId: number
 
   @column.date()
-  public borrow_date: DateTime
+  public borrowDate: DateTime
 
   @column.date()
-  public return_date: DateTime
+  public returnDate: DateTime
 
   @column()
   public status: boolean
