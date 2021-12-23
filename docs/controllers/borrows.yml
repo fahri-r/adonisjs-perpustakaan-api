@@ -2,6 +2,12 @@
 paths:
   /api/v1/borrows:
     get:
+      parameters:
+        - in: query
+          name: date
+          type: string
+          required: false
+          description: will return the borrow list in one month (YYYY-MM-DD)
       security:
         - bearerAuth: []
       tags:

@@ -13,9 +13,17 @@ export default class Members extends BaseSchema {
       table.integer('user_id', 10).unsigned()
       table.timestamps(true, true)
     })
+    
+    this.schema.alterTable(this.tableName, (table) => {
+      table.foreign('user_id').references('users.id').onDelete('CASCADE')
+    })
   }
 
   public async down () {
+    this.schema.alterTable(this.tableName, (table) => {
+      table.dropForeign('user_id')
+    })
+    
     this.schema.dropTable(this.tableName)
   }
 }

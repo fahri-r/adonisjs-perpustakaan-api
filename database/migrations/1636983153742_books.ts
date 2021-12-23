@@ -10,6 +10,8 @@ export default class Books extends BaseSchema {
       table.text('description')
       table.integer('year').notNullable()
       table.string('author').notNullable()
+      table.string('qty').notNullable()
+      table.string('page').notNullable()
       table.integer('category_id', 10).unsigned()
       table.integer('publisher_id', 10).unsigned()
       table.timestamps(true, true)

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { afterCreate, afterUpdate, BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Employee from './Employee'
 import Member from './Member'
 import Book from './Book'
@@ -40,4 +40,22 @@ export default class Borrow extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @afterCreate()
+  public static async minQuantity (borrow: Borrow) {
+    if (!borrow.status) {
+      const book = await Book.find(borrow.bookId)
+      book!.qty -= 1
+      book!.save()
+    }
+  }
+
+  @afterUpdate()
+  public static async plusQuantity (borrow: Borrow) {
+    if (borrow.status) {
+      const book = await Book.find(borrow.bookId)
+      book!.qty += 1
+      book!.save()
+    }
+  }
 }
