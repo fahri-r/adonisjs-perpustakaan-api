@@ -2,6 +2,12 @@
 paths:
   /api/v1/books:
     get:
+      parameters:
+        - in: query
+          name: title
+          type: string
+          required: false
+          description: book title you are looking for
       security:
         - bearerAuth: []
       tags:

@@ -18,6 +18,12 @@ export default class Book extends BaseModel {
   public year: number
 
   @column()
+  public qty: number
+
+  @column()
+  public page: number
+
+  @column()
   public author: string
   
   @column()

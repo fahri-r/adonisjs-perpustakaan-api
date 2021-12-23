@@ -4,7 +4,8 @@ import Member from 'App/Models/Member'
 import User from 'App/Models/User'
 import Route from '@ioc:Adonis/Core/Route'
 import VerificationCode from 'App/Models/VerificationCode'
-import MemberValidator from 'App/Validators/MemberValidator'
+import MemberStoreValidator from 'App/Validators/MemberStoreValidator'
+import MemberUpdateValidator from 'App/Validators/MemberUpdateValidator'
 
 export default class MembersController {
     public async index({ response }: HttpContextContract) {
@@ -24,7 +25,7 @@ export default class MembersController {
     }
   
     public async store({ request, response }: HttpContextContract) {
-      const payload = await request.validate(MemberValidator)
+      const payload = await request.validate(MemberStoreValidator)
 
       const user = new User
       user.email = payload.email
@@ -86,7 +87,7 @@ export default class MembersController {
     }
   
     public async update({ request, response, params }: HttpContextContract) {
-      const payload = await request.validate(MemberValidator)
+      const payload = await request.validate(MemberUpdateValidator)
   
       const member = await Member.findOrFail(params.id)
       member.name = payload.name

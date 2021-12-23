@@ -14,6 +14,12 @@ definitions:
       author:
         type: string
         description: author name
+      qty:
+        type: integer
+        description: book quantity
+      page:
+        type: integer
+        description: book page
       category_id:
         type: integer
         description: category id
@@ -25,5 +31,7 @@ definitions:
       - description
       - year
       - author
+      - qty
+      - page
       - category_id
       - publisher_id

@@ -28,6 +28,8 @@ export default class BookValidator {
     description: schema.string(),
     year: schema.number(),
     author: schema.string(),
+    qty: schema.number(),
+    page: schema.number(),
     category_id: schema.number([
       rules.exists({ table: 'categories', column: 'id' })
     ]),

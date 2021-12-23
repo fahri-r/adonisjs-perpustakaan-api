@@ -3,10 +3,17 @@ import Book from 'App/Models/Book'
 import BookValidator from 'App/Validators/BookValidator'
 
 export default class BooksController {
-  public async index({ response }: HttpContextContract) {
-    const books = await Book.query()
+  public async index({ request, response }: HttpContextContract) {
+    let books = await Book.query()
+    .preload('category')
+    .preload('publisher')
+    
+    if (request.qs().title) {
+      books = await Book.query()
       .preload('category')
       .preload('publisher')
+      .where('title', 'like', `%${request.qs().title}%`)
+    }
 
     if (!books.length) {
       return response.notFound({
@@ -28,6 +35,8 @@ export default class BooksController {
     book.description = payload.description
     book.year = payload.year
     book.author = payload.author
+    book.qty = payload.qty
+    book.page = payload.page
     book.categoryId = payload.category_id
     book.publisherId = payload.publisher_id
     await book.save()
@@ -59,6 +68,8 @@ export default class BooksController {
     book.description = payload.description
     book.year = payload.year
     book.author = payload.author
+    book.qty = payload.qty
+    book.page = payload.page
     book.categoryId = payload.category_id
     book.publisherId = payload.publisher_id
     await book.save()

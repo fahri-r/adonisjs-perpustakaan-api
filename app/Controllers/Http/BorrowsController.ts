@@ -4,11 +4,19 @@ import Employee from 'App/Models/Employee'
 import BorrowValidator from 'App/Validators/BorrowValidator'
 
 export default class BorrowsController {
-    public async index({ response }: HttpContextContract) {
-        const borrows = await Borrow.query()
+    public async index({ request, response }: HttpContextContract) {
+        let borrows = await Borrow.query()
             .preload('employee')
             .preload('member')
             .preload('book')
+
+        if (request.qs().date) {
+            borrows = await Borrow.query()
+            .preload('employee')
+            .preload('member')
+            .preload('book')
+            .whereRaw('month(borrow_date)=month(?)', [request.qs().date])
+        }
 
         if (!borrows.length) {
             return response.notFound({
