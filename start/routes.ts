@@ -32,10 +32,17 @@ Route.group(() => {
     Route.group(() => {
       Route.resource('categories', 'CategoriesController').apiOnly()
       Route.resource('publishers', 'PublishersController').apiOnly()
-      Route.resource('members', 'MembersController').apiOnly()
-      Route.resource('books', 'BooksController').apiOnly()
-      Route.resource('borrows', 'BorrowsController').apiOnly()
+      Route.resource('members', 'MembersController').apiOnly().only(['update', 'index', 'destroy'])
+      Route.resource('books', 'BooksController').apiOnly().only(['store', 'update', 'destroy'])
+      Route.resource('borrows', 'BorrowsController').apiOnly().only(['store', 'update', 'index', 'destroy'])
     }).middleware(['role:employee,admin'])
+
+    Route.group(() => {
+      Route.resource('books', 'BooksController').apiOnly().only(['index', 'show'])
+      Route.resource('members', 'MembersController').apiOnly().only(['show'])
+      Route.resource('members.borrows', 'MembersBorrowsController').only(['index'])
+      Route.resource('borrows', 'BorrowsController').apiOnly().only(['show'])
+    }).middleware(['role:member,employee,admin'])
 
     Route.group(() => {
       Route.resource('employees', 'EmployeesController').apiOnly()
@@ -43,7 +50,7 @@ Route.group(() => {
   
   }).middleware(['auth', 'verified'])
 
-
+  Route.resource('members', 'MembersController').apiOnly().only(['store'])
   Route.post('login/web', 'AuthController.webLogin').as('auth.webLogin')
   Route.post('login/telegram', 'AuthController.telegramLogin').as('auth.telegramLogin')
   Route.post('verification', 'AuthController.emailVerification').as('auth.emailVerification')
