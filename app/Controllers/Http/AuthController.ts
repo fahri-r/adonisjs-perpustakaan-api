@@ -1,4 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Employee from 'App/Models/Employee'
+import Member from 'App/Models/Member'
 import User from 'App/Models/User'
 import EmailVerificationValidator from 'App/Validators/EmailVerificationValidator'
 import TelegramLoginValidator from 'App/Validators/TelegramLoginValidator'
@@ -20,8 +22,25 @@ export default class AuthController {
     public async telegramLogin({ request, response, auth }: HttpContextContract) {
         const payload = await request.validate(TelegramLoginValidator)
         const user = await User.findByOrFail('telegram_id', payload.telegram_id)
-        const token = await auth.use('api').generate(user)
-        return response.ok({ message: 'login success', token })
+
+        let data = {}
+
+        if (user.role == 'member') {
+            const member = await Member.findByOrFail('user_id', user.id)
+            data['member_id'] = member.id
+        }  else {
+            const employee = await Employee.findByOrFail('user_id', user.id)
+            data['employee_id'] = employee.id
+        }
+        
+        const token = await auth.use('api').generate(user, {
+            expiresIn: '12hours'
+        })
+
+        data['type'] = token.type
+        data['token'] = token.token
+        data['expires_at'] = token.expiresAt
+        return response.ok({ message: 'login success', token: data })
     }
 
     public async emailVerification({ request, response }: HttpContextContract) {

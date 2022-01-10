@@ -16,8 +16,6 @@ paths:
           description: no data found
 
     post:
-      security:
-        - bearerAuth: []
       tags:
         - Members
       summary: store member data
@@ -113,3 +111,29 @@ paths:
           description: unauthorized
         404:
           description: member not found
+
+  /api/v1/members/{id}/borrows:
+    get:
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: member id you want to show
+        - in: query
+          name: return_date
+          type: string
+          required: false
+          description: return date of borrow (YYYY-MM-DD)
+      security:
+        - bearerAuth: []
+      tags:
+        - Members
+      summary: get member borrows
+      responses:
+        200:
+          description: success get member borrows
+        401:
+          description: unauthorized
+        404:
+          description: member or borrows not found
