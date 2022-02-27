@@ -9,11 +9,28 @@ import WebLoginValidator from 'App/Validators/WebLoginValidator'
 export default class AuthController {
     public async webLogin({ request, response, auth }: HttpContextContract) {
         const payload = await request.validate(WebLoginValidator)
+        const user = await User.findByOrFail('email', payload.email)
+
+        let data = {}
+
+        if (user.role == 'member') {
+            const member = await Member.findByOrFail('user_id', user.id)
+            data['member'] = member
+        }  else {
+            const employee = await Employee.findByOrFail('user_id', user.id)
+            data['employee'] = employee
+        }
+
         try {
             const token = await auth.use('api').attempt(payload.email, payload.password, {
                 expiresIn: '12hours'
             })
-            return response.ok({ message: 'login success', token })
+
+            data['type'] = token.type
+            data['token'] = token.token
+            data['expires_at'] = token.expiresAt
+
+            return response.ok({ message: 'login success', data})
         } catch (error) {
             return response.badRequest({ message: error.messages })
         }
@@ -40,7 +57,7 @@ export default class AuthController {
         data['type'] = token.type
         data['token'] = token.token
         data['expires_at'] = token.expiresAt
-        return response.ok({ message: 'login success', token: data })
+        return response.ok({ message: 'login success', data})
     }
 
     public async emailVerification({ request, response }: HttpContextContract) {
