@@ -15,6 +15,14 @@ export default class MembersBorrowsController {
                 .where('member_id', params.member_id)
                 .andWhere('return_date', request.qs().return_date)
     }
+    
+    if (request.qs().status) {
+        borrows = await Borrow.query()
+                .preload('book')
+                .preload('employee')
+                .where('member_id', params.member_id)
+                .andWhere('status', request.qs().status)
+    }
 
     if (!borrows.length) {
       return response.notFound({

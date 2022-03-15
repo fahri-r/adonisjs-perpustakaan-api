@@ -125,6 +125,11 @@ paths:
           type: string
           required: false
           description: return date of borrow (YYYY-MM-DD)
+        - in: query
+          name: status
+          type: boolean
+          required: false
+          description: borrow status
       security:
         - bearerAuth: []
       tags:
