@@ -7,6 +7,7 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+import Application from '@ioc:Adonis/Core/Application'
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -19,9 +20,35 @@ const databaseConfig: DatabaseConfig = {
   | file.
   |
   */
-  connection: 'pg',
+  connection: Application.inDev ? 'mysql' : 'pg' ,
 
   connections: {
+    /*
+    |--------------------------------------------------------------------------
+    | MySQL config
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for MySQL database. Make sure to install the driver
+    | from npm when using this connection
+    |
+    | npm i mysql
+    |
+    */
+    mysql: {
+      client: 'mysql',
+      connection: {
+        host: Env.get('MYSQL_HOST'),
+        port: Env.get('MYSQL_PORT'),
+        user: Env.get('MYSQL_USER'),
+        password: Env.get('MYSQL_PASSWORD', ''),
+        database: Env.get('MYSQL_DB_NAME'),
+      },
+      migrations: {
+        naturalSort: true,
+      },
+      healthCheck: false,
+      debug: false,
+    },
 
     /*
     |--------------------------------------------------------------------------
@@ -42,9 +69,6 @@ const databaseConfig: DatabaseConfig = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
-        ssl: {
-          rejectUnauthorized: false
-        },
       },
       migrations: {
         naturalSort: true,
